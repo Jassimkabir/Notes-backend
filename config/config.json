@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "notesdev",
+    "password": "complicated",
+    "database": "notesdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "notesdev",
+    "password": "complicated",
+    "database": "notesdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "notesdev",
+    "password": "complicated",
+    "database": "notesdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
