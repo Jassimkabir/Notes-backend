@@ -1,16 +1,18 @@
 const router = require('express').Router({ mergeParams: true });
-const Note = require('../models/note');
 const Notes = require('../models/note');
 
 // Add a note
-router.post('/add-note', async (req, res) => {
+router.post('/:id/add-note', async (req, res) => {
   try {
-    const { description } = req.body;
+    const userId = req.params.id;
+    const { description, title } = req.body;
     const date = new Date();
 
-    const addNote = await Note.create({
+    const addNote = await Notes.create({
       description: description,
       date: date,
+      user_id: userId,
+      title: title,
     });
 
     res.status(200).send(addNote);
@@ -70,7 +72,7 @@ router.post('/update-note/:id', async (req, res) => {
     const noteId = req.params.id;
     const { description } = req.body;
 
-    const updateNote = await Note.findOne({
+    const updateNote = await Notes.findOne({
       where: {
         id: noteId,
       },
