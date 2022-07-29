@@ -21,7 +21,7 @@ const Note = sequelize.define(
       type: DataTypes.DATE,
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: user,
