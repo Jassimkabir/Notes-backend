@@ -39,9 +39,15 @@ router.get('/get-note/:id', async (req, res) => {
 });
 
 // Get all notes
-router.get('/get-all-notes', async (req, res) => {
+router.get('/:id/get-all-notes', async (req, res) => {
   try {
-    const allnotes = await Notes.findAll();
+    const userId = req.params.id;
+
+    const allnotes = await Notes.findAll({
+      where: {
+        user_id: userId,
+      },
+    });
 
     res.status(200).send(allnotes);
   } catch (err) {
