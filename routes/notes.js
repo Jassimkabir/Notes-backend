@@ -47,6 +47,7 @@ router.get('/:id/get-all-notes', async (req, res) => {
       where: {
         user_id: userId,
       },
+      order: [['date', 'DESC']],
     });
 
     res.status(200).send(allnotes);
