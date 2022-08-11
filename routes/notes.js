@@ -77,7 +77,7 @@ router.post('/delete-note/:id', async (req, res) => {
 router.post('/update-note/:id', async (req, res) => {
   try {
     const noteId = req.params.id;
-    const { description } = req.body;
+    const { title, description } = req.body;
 
     const updateNote = await Notes.findOne({
       where: {
@@ -85,6 +85,7 @@ router.post('/update-note/:id', async (req, res) => {
       },
     });
 
+    updateNote.title = title;
     updateNote.description = description;
     await updateNote.save();
 
