@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@optimizely/optimizely-sdk": "^4.9.2",
     "bcrypt": "^5.0.1",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",

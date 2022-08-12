@@ -1,5 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
 const Notes = require('../models/note');
+const optimizelyClient = require('../lib/optimizely');
 
 // Add a note
 router.post('/:id/add-note', async (req, res) => {
@@ -25,14 +26,27 @@ router.post('/:id/add-note', async (req, res) => {
 router.get('/get-note/:id', async (req, res) => {
   try {
     const noteId = req.params.id;
+    const userId = req.user.id;
+    console.log(userId);
 
-    const getNote = await Notes.findOne({
-      where: {
-        id: noteId,
-      },
-    });
+    const enabled = optimizelyClient.isFeatureEnabled(
+      'expand_or_update_note',
+      userId,
+      {
+        user_id: userId,
+      }
+    );
+    if (enabled) {
+      const getNote = await Notes.findOne({
+        where: {
+          id: noteId,
+        },
+      });
 
-    res.status(200).send(getNote);
+      res.status(200).send(getNote);
+    } else {
+      res.status(404).send('This feature is not available to you');
+    }
   } catch (err) {
     console.error(err);
   }
