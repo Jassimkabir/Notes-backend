@@ -27,7 +27,6 @@ router.get('/get-note/:id', async (req, res) => {
   try {
     const noteId = req.params.id;
     const userId = req.user.id;
-    console.log(userId);
 
     const enabled = optimizelyClient.isFeatureEnabled(
       'expand_or_update_note',
@@ -45,7 +44,7 @@ router.get('/get-note/:id', async (req, res) => {
 
       res.status(200).send(getNote);
     } else {
-      res.status(404).send('This feature is not available to you');
+      res.status(403).send('This feature is not available to you');
     }
   } catch (err) {
     console.error(err);
