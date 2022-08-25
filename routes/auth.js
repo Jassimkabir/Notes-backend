@@ -1,6 +1,7 @@
 const router = require('express').Router({ mergeParams: true });
 const passport = require('passport');
 const User = require('../models/user');
+const optimizelyClient = require('../lib/optimizely');
 // const utils = require('../lib/utils');
 
 // // Register
@@ -43,10 +44,18 @@ const User = require('../models/user');
 
 router.get('/login/success', (req, res) => {
   if (req.user) {
+    const enabled = optimizelyClient.isFeatureEnabled(
+      'expand_or_update_note',
+      req.user.id,
+      {
+        user_id: req.user.id,
+      }
+    );
     res.status(200).json({
       success: true,
       message: 'Login success',
       user: req.user,
+      status: enabled,
     });
   }
 });
