@@ -1,7 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
 const passport = require('passport');
 const User = require('../models/user');
-const optimizelyClient = require('../lib/optimizely');
 // const utils = require('../lib/utils');
 
 // // Register

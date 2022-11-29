@@ -1,6 +1,5 @@
 const router = require('express').Router({ mergeParams: true });
 const Notes = require('../models/note');
-const optimizelyClient = require('../lib/optimizely');
 
 // Add a note
 router.post('/:id/add-note', async (req, res) => {
