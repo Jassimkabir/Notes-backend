@@ -43,21 +43,11 @@ const optimizelyClient = require('../lib/optimizely');
 // });
 
 router.get('/login/success', (req, res) => {
-  if (req.user) {
-    const enabled = optimizelyClient.isFeatureEnabled(
-      'expand_or_update_note',
-      req.user.id,
-      {
-        user_id: req.user.id,
-      }
-    );
-    res.status(200).json({
-      success: true,
-      message: 'Login success',
-      user: req.user,
-      status: enabled,
-    });
-  }
+  res.status(200).json({
+    success: true,
+    message: 'Login success',
+    user: req.user,
+  });
 });
 
 router.get('/login/failed', (req, res) => {

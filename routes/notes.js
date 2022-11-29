@@ -27,28 +27,13 @@ router.get('/get-note/:id', async (req, res) => {
   try {
     const noteId = req.params.id;
     const userId = req.user.id;
-    console.log(userId);
+    const getNote = await Notes.findOne({
+      where: {
+        id: noteId,
+      },
+    });
 
-    const enabled = optimizelyClient.isFeatureEnabled(
-      'expand_or_update_note',
-      userId,
-      {
-        user_id: userId,
-      }
-    );
-    if (enabled) {
-      const getNote = await Notes.findOne({
-        where: {
-          id: noteId,
-        },
-      });
-
-      res.status(200).send(getNote);
-    } else {
-      res
-        .status(400)
-        .send('This feature is either turned off or not available to you');
-    }
+    res.status(200).send(getNote);
   } catch (err) {
     console.error(err);
   }
